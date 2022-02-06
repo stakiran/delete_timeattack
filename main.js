@@ -173,6 +173,15 @@ class Questioner {
 
 }
 
+const K = {
+    'BACKSPACE' : 8,
+    'CTRL'      : 17,
+    'ECSE '     : 27,
+    'SPACE'     : 32,
+    'DELETE'    : 46,
+    'V'         : 86,
+};
+
 $(function() {
     $('#battleField').val(''); // reload 時でも確実にクリアしたい
 
@@ -188,14 +197,25 @@ $(function() {
 
     $('#battleField').keyup(function(e){
         const event = e
-        console.log(`keyup ${event.keyCode}`)
-        const dt2 = new Datetime()
-        console.log(dt1.getDiffByMilliSeconds(dt2))
-    });
-
-    $('#battleField').keydown(function(e){
-        const event = e
-        console.log(`keydown ${event.keyCode}`)
+        const kc = event.keyCode
+        
+        if(kc == K.DELETE){
+            console.log('delete')
+            return
+        }
+        if(kc == K.SPACE){
+            console.log('space')
+            return
+        }
+        if(kc == K.CTRL){
+            console.log('ctrl')
+            return
+        }
+        if(kc == K.V){
+            console.log('v')
+            return
+        }
+        console.log(`Booooo!: kc = ${kc}`)
     });
 
 });
