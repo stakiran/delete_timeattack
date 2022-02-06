@@ -267,6 +267,16 @@ $(function() {
 
     const GM = new GameMaster()
 
+    $('#battleField').keydown(function(e){
+        const event = e
+        const kc = event.keyCode
+
+        // stop 操作で使いたいが、文字入力入ると判定乱れるのでロックする。
+        if(kc == K.SPACE){
+            event.preventDefault()
+        }
+    })
+
     $('#battleField').keyup(function(e){
         const event = e
         const kc = event.keyCode
