@@ -2,14 +2,59 @@
 
 const LINEBREAK = '\n';
 
-function arrayToString(a){
+function arraylineToString(a){
     return a.join(LINEBREAK)
 }
 
+function arraystrToString(a){
+    // 何も指定しないと , になるので明示的に空文字指定が必要
+    return a.join('')
+}
+
 function getRandomNumber0toX(x) {
-    min = 0
-    max = Math.floor(x)
+    const min = 0
+    const max = Math.floor(x)
     return Math.floor(Math.random() * (max - min)) + min
+}
+
+// pureCharで構成された文字列に、n個分のdirtyCharを挿入する。
+// 実際は（string は immtable なので）挿入後の文字列を返す。
+function getInsertedString_RandomlyNtimes(beforestr, n, dirtyChar) {
+    const afterLength = beforestr.length + n
+    const pureChar = beforestr.charAt(0)
+
+    // 計9個、3個挿入したいとする
+    // oooooo
+    // xxx
+    //
+    // ooooooxxx まずは全連結時の長さを計算して、
+    // [0, 1, 2, ..., 8] 各位置から成る配列をつくって、
+    // この配列から一つランダムに取り除くことで、ランダムな挿入位置を計算する
+    // why?
+    //   このように「取り除く対象から "すでに採用した位置" を消す」処理をしないと
+    //   同じ位置に再度挿入するみたいな重複が起こるから.
+
+    let selectee = new Array(afterLength)
+    for(var i=0; i<selectee.length; i++){
+        selectee[i] = i
+    }
+    const inserteePositions = [];
+    for(var i=0; i<n; i++){
+        const indexOfInserteePos = getRandomNumber0toX(selectee.length)
+        const inserteePos = selectee.splice(indexOfInserteePos, 1)
+        inserteePositions.push(inserteePos);
+    }
+
+    let afterstrByList = []
+    for(var i=0; i<afterLength; i++){
+        afterstrByList[i] = pureChar
+    }
+    for(var i=0; i<n; i++){
+        const inserteePos = inserteePositions[i]
+        afterstrByList[inserteePos] = dirtyChar
+    }
+    const afterstr = arraystrToString(afterstrByList)
+    return afterstr
 }
 
 class Questioner {
@@ -18,18 +63,20 @@ class Questioner {
         this._ySize = ySize;
         this._targetCountPerLine = targetCountPerLine;
 
-        this.NT = '□';
-        this.T = '■'
+        this.PURE = '□';
+        this.DIRTY = '■'
 
         this.clear()
     }
 
     create(){
-        const pureSize = this._xSize - this._targetCountPerLine
+        const dirtyCount = this._targetCountPerLine
+        const pureSize = this._xSize - dirtyCount
 
-        const pureLine = this.NT.repeat(pureSize)
+        const pureLine = this.PURE.repeat(pureSize)
         for(var i=0; i<pureSize; i++){
-            this._lines.push(pureLine);
+            const line = getInsertedString_RandomlyNtimes(pureLine, dirtyCount, this.DIRTY)
+            this._lines.push(line);
         }
     }
 
@@ -42,7 +89,7 @@ class Questioner {
     }
 
     get linesByStr(){
-        return arrayToString(this._lines)
+        return arraylineToString(this._lines)
     }
 
 }
