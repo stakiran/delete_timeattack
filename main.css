@@ -1,0 +1,11 @@
+.centerContainer {
+  display: flex;
+  justify-content: center;
+}
+
+#battleField {
+  margin-left: 20px;
+  margin-right: 20px;
+  width: 360px;
+  height: 120px;
+}
