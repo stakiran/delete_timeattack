@@ -315,6 +315,18 @@ class Field{
         $(this._selector).val(s);
     }
 
+    focusMe(){
+        $(this._selector).focus();
+    }
+
+    moveCursorToTop(){
+        const jq = $(this._selector);
+        const dom = jq[0];
+        const topX = 0;
+        const topY = 0;
+        dom.setSelectionRange(topX, topY);
+    }
+
     get value(){
         return $(this._selector).val();
     }
@@ -352,6 +364,9 @@ $(function() {
     const questioner = new Questioner(XSIZE, YSIZE, TARGET_COUNT_PER_LINE)
     questioner.create()
     field.reload(questioner.linesByStr)
+
+    field.focusMe()
+    field.moveCursorToTop()
 
     const GM = new GameMaster()
 
