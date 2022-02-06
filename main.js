@@ -280,9 +280,10 @@ class GameMaster{
     }
 
     ready(){
-        if(this.isNotStarted){
-            return false
-        }
+        // 問題シャッフルができるので常にreadyが発動するようにしてみる。
+        //if(this.isNotStarted){
+        //    return false
+        //}
         this._state = GameMaster.NOT_STARTED
         return true
     }
@@ -406,6 +407,7 @@ $(function() {
             console.log('Readyに戻りました')
             questioner.create()
             field.reload(questioner.linesByStr)
+            field.moveCursorToTop()
             timerview.reset()
             return
         }
