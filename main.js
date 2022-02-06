@@ -225,9 +225,6 @@ class GameMaster{
         if(this.isNotStarted){
             return false
         }
-        if(this.isStarting){
-            return false
-        }
         this._state = GameMaster.NOT_STARTED
         return true
     }
@@ -273,13 +270,20 @@ $(function() {
         }
 
         if(kc == K.DELETE){
-            // 最初のひと押しで start する
+            const b = GM.start()
+            if(!b){
+                return
+            }
+            console.log('Deleteキーでゲーム開始')
             return
         }
 
         if(kc == K.ESC){
-            // ready に戻る
-            console.log('escape')
+            const b = GM.ready()
+            if(!b){
+                return
+            }
+            console.log('Readyに戻りました')
             return
         }
 
