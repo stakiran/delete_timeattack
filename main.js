@@ -197,16 +197,15 @@ class Questioner {
         }
     }
 
-    judge(s){
+    judge(actualByString){
+        const dirtyCount = this._targetCountPerLine
         const pureSize = this._xSize - dirtyCount
         const pureLine = this.PURE.repeat(pureSize)
-        pureLines = []
+        let pureLines = []
         for(var i=0; i<pureSize; i++){
             pureLines.push(pureLine);
         }
-        expectByString = arraylineToString(pureLine)
-
-        actualByString = s
+        const expectByString = arraylineToString(pureLines)
 
         const result = equalArrayXandArrayY(expectByString, actualByString)
         return result
@@ -271,12 +270,6 @@ class GameMaster{
         return true
     }
 
-    cancelStop(){
-        this._state = GameMaster.STARTING
-        return true
-    }
-
-
     ready(){
         if(this.isNotStarted){
             return false
@@ -313,6 +306,9 @@ class Field{
         $(this._selector).val(s);
     }
 
+    get value(){
+        return $(this._selector).val();
+    }
 }
 
 const K = {
@@ -394,7 +390,13 @@ $(function() {
                 return
             }
             console.log('stop判定入ります')
-            // 不正解だったらcancelStop()で開始中に戻る
+
+            const fieldValue = field.value
+            const isCorrect = questioner.judge(fieldValue)
+            if(!isCorrect){
+                return
+            }
+
             timerview.stop()
             return
         }
