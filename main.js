@@ -338,7 +338,7 @@ $(function() {
 
     const field = new Field(SELECTOR_FIELD)
 
-    const DISPLAY_INTERVAL_MILLISECONDS = 50
+    const DISPLAY_INTERVAL_MILLISECONDS = 20
     const timerview = new TimerView(SELECTOR_TIMER, DISPLAY_INTERVAL_MILLISECONDS)
 
     const XSIZE = 10
