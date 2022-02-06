@@ -176,8 +176,14 @@ class Questioner {
 const K = {
     'BACKSPACE' : 8,
     'CTRL'      : 17,
-    'ECSE '     : 27,
+    'ESC'       : 27,
     'SPACE'     : 32,
+    "LEFT"      : 37,
+    "UP"        : 38,
+    "RIGHT"     : 39,
+    "DOWN"      : 40,
+    "CURSOR_"   : 37,
+    "_CURSOR"   : 40,
     'DELETE'    : 46,
     'V'         : 86,
 };
@@ -199,8 +205,16 @@ $(function() {
         const event = e
         const kc = event.keyCode
         
+        if(K.CURSOR_ <= kc && kc <= K._CURSOR){
+            console.log('cursors')
+            return
+        }
         if(kc == K.DELETE){
             console.log('delete')
+            return
+        }
+        if(kc == K.ESC){
+            console.log('escape')
             return
         }
         if(kc == K.SPACE){
