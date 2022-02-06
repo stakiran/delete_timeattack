@@ -147,7 +147,11 @@ class TimerView {
         const min = Math.trunc(mSec/60000)
         const sec = Math.trunc(mSec/1000)
         const milliSec = Math.trunc(mSec - sec*1000)
-        const displayText = `${min.toString()}:${sec.toString()}:${milliSec.toString()}`
+
+        const dm = min.toString()
+        const ds = sec.toString().padStart(2, '0')
+        const dms = milliSec.toString().padStart(3, '0')
+        const displayText = `${dm}:${ds}:${dms}`
         return displayText
     }
 
