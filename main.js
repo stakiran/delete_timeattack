@@ -235,6 +235,18 @@ class GameMaster{
         return true
     }
 
+    onRaedy(){
+        // フィールドの初期設定
+        // タイマーのリセット
+    }
+
+    onStart(){
+        // タイマーの開始
+    }
+
+    onStop(){
+        // 判定
+    }
 }
 
 class Field{
