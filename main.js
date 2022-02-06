@@ -137,6 +137,9 @@ class Questioner {
         const dirtyCount = this._targetCountPerLine
         const pureSize = this._xSize - dirtyCount
 
+        const startLine = `${this.PURE}`
+        this._lines.push(startLine);
+
         const pureLine = this.PURE.repeat(pureSize)
         for(var i=0; i<pureSize; i++){
             const line = getInsertedString_RandomlyNtimes(pureLine, dirtyCount, this.DIRTY)
@@ -175,6 +178,7 @@ class Questioner {
 
 const K = {
     'BACKSPACE' : 8,
+    'SHIFT'     : 16,
     'CTRL'      : 17,
     'ESC'       : 27,
     'SPACE'     : 32,
@@ -186,6 +190,7 @@ const K = {
     "_CURSOR"   : 40,
     'DELETE'    : 46,
     'V'         : 86,
+    'X'         : 88,
 };
 
 $(function() {
@@ -227,6 +232,14 @@ $(function() {
         }
         if(kc == K.V){
             console.log('v')
+            return
+        }
+        if(kc == K.SHIFT){
+            console.log('shift')
+            return
+        }
+        if(kc == K.X){
+            console.log('x')
             return
         }
         console.log(`Booooo!: kc = ${kc}`)
