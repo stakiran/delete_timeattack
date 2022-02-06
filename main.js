@@ -207,6 +207,9 @@ class Questioner {
         }
         const expectByString = arraylineToString(pureLines)
 
+        console.log(expectByString)
+        console.log(actualByString)
+
         const result = equalArrayXandArrayY(expectByString, actualByString)
         return result
     }
@@ -385,18 +388,16 @@ $(function() {
         }
 
         if(kc == K.SPACE){
-            const b = GM.stop()
-            if(!b){
-                return
-            }
             console.log('stop判定入ります')
 
             const fieldValue = field.value
             const isCorrect = questioner.judge(fieldValue)
             if(!isCorrect){
+                console.log('合ってないのでまだ続きます')
                 return
             }
 
+            console.log('合ってるのでstopします')
             timerview.stop()
             return
         }
