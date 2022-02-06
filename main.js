@@ -11,6 +11,16 @@ function arraystrToString(a){
     return a.join('')
 }
 
+function stringToArray(s){
+    return s.split("\n")
+}
+
+function equalArrayXandArrayY(x, y){
+    const stringX = JSON.stringify(x)
+    const stringY = JSON.stringify(y)
+    return stringX===stringY
+}
+
 function getRandomNumber0toX(x) {
     const min = 0
     const max = Math.floor(x)
@@ -91,6 +101,26 @@ class Datetime {
     }
 }
 
+class Timer {
+    constructor() {}
+
+    _getNowObject(){
+        const msecJST = Date.now()
+        const dateJST = new Date(msecJST)
+        return dateJST
+    }
+
+    start(){
+        this._dateJST_at_starting = this._getNowObject()
+    }
+
+    stop(){
+        this._dateJST_at_stoppping = this._getNowObject()
+        const msec = this._dateJST_at_starting - this._dateJST_at_stoppping
+        return msec
+    }
+}
+
 class Questioner {
     constructor(xSize, ySize, targetCountPerLine) {
         this._xSize = xSize;
@@ -112,6 +142,21 @@ class Questioner {
             const line = getInsertedString_RandomlyNtimes(pureLine, dirtyCount, this.DIRTY)
             this._lines.push(line);
         }
+    }
+
+    judge(s){
+        const pureSize = this._xSize - dirtyCount
+        const pureLine = this.PURE.repeat(pureSize)
+        pureLines = []
+        for(var i=0; i<pureSize; i++){
+            pureLines.push(pureLine);
+        }
+        expectByString = arraylineToString(pureLine)
+
+        actualByString = s
+
+        const result = equalArrayXandArrayY(expectByString, actualByString)
+        return result
     }
 
     clear(){
