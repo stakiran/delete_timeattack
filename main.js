@@ -57,6 +57,40 @@ function getInsertedString_RandomlyNtimes(beforestr, n, dirtyChar) {
     return afterstr
 }
 
+class Datetime {
+    constructor(){
+        this._init()
+    }
+
+    _init(){
+        // 以前の検証で now() は JST のはずだが、まだ自信ない……
+        const msecJST = Date.now()
+        const dateJST = new Date(msecJST)
+        this._dateJST = dateJST
+    }
+
+    get _rawObject(){
+        return this._dateJST
+    }
+
+    get day(){
+        const day = this._dateJST.getDate()
+        return day
+    }
+
+    get dowJP(){
+        const downum = this._dateJST.getDay()
+        const dowTable = ['日', '月', '火', '水', '木', '金', '土']
+        const dow = dowTable[downum]
+        return dow
+    }
+
+    getDiffByMilliSeconds(datetimeObj){
+        const msec = datetimeObj._rawObject - this._dateJST
+        return msec
+    }
+}
+
 class Questioner {
     constructor(xSize, ySize, targetCountPerLine) {
         this._xSize = xSize;
@@ -105,9 +139,13 @@ $(function() {
     questioner.create()
     $('#battleField').val(questioner.linesByStr);
 
+    const dt1 = new Datetime()
+
     $('#battleField').keyup(function(e){
         const event = e
         console.log(`keyup ${event.keyCode}`)
+        const dt2 = new Datetime()
+        console.log(dt1.getDiffByMilliSeconds(dt2))
     });
 
     $('#battleField').keydown(function(e){
