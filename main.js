@@ -176,6 +176,57 @@ class Questioner {
 
 }
 
+class GameMaster{
+    static NOT_STARTED = 'ゲーム開始前の状態'
+    static STARTING = 'ゲーム開始中'
+    static STOPPED = 'ゲーム終了して結果出てる'
+
+    constructor(){
+        this._state = GameMaster.NOT_STARTED
+    }
+
+    get isNotStarted(){
+        return this._state == GameMaster.NOT_STARTED
+    }
+    get isStarting(){
+        return this._state == GameMaster.STARTING
+    }
+    get isStopped(){
+        return this._state == GameMaster.STOPPED
+    }
+
+    start(){
+        if(this.isStarting){
+            return
+        }
+        if(this.isStopped){
+            return
+        }
+        this._state = GameMaster.STARTING
+    }
+
+    stop(){
+        if(this.isNotStarted){
+            return
+        }
+        if(this.isStopped){
+            return
+        }
+        this._state = GameMaster.STOPPED
+    }
+
+    ready(){
+        if(this.isNotStarted){
+            return
+        }
+        if(this.isStarting){
+            return
+        }
+        this._state = GameMaster.NOT_STARTED
+    }
+
+}
+
 const K = {
     'BACKSPACE' : 8,
     'SHIFT'     : 16,
