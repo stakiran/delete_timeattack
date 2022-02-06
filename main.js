@@ -114,10 +114,48 @@ class Timer {
         this._dateJST_at_starting = this._getNowObject()
     }
 
-    stop(){
-        this._dateJST_at_stoppping = this._getNowObject()
-        const msec = this._dateJST_at_starting - this._dateJST_at_stoppping
+    see(){
+        this._dateJST_at_current = this._getNowObject()
+        const msec = this._dateJST_at_starting - this._dateJST_at_current
         return msec
+    }
+}
+
+class TimerView {
+    static DEFAUT_DISPLAY = '0:00:00'
+
+    constructor(selectorId_TimerDisplay, displayIntervalMsec) {
+        this._timer = new Timer()
+        this._selector = selectorId_TimerDisplay
+        this._intervalMsec = displayIntervalMsec
+
+        const DUMMY = 0
+        this._intervalId = DUMMY
+    }
+
+    updateDisplay(s){
+        $(this._selector).text(s)
+    }
+
+    reset(){
+        this.stop()
+
+        this.updateDisplay(TimerView.DEFAUT_DISPLAY)
+    }
+
+    start(){
+        this._timer.start()
+
+        const id = setInterval(() => {
+            const passingByMsec = this._timer.see()
+            // ここで msec を display passing time に変換……
+            this.updateDisplay(passingByMsec)
+        }, this._intervalMsec)
+        this._intervalId = id
+    }
+
+    stop(){
+        clearInterval(this._intervalId)
     }
 }
 
@@ -284,8 +322,12 @@ const K = {
 
 $(function() {
     const SELECTOR_FIELD = '#battleField'
+    const SELECTOR_TIMER = '#timerArea'
 
     const field = new Field(SELECTOR_FIELD)
+
+    const DISPLAY_INTERVAL_MILLISECONDS = 50
+    const timerview = new TimerView(SELECTOR_TIMER, DISPLAY_INTERVAL_MILLISECONDS)
 
     const XSIZE = 10
     const YSIZE = 5
@@ -320,6 +362,7 @@ $(function() {
                 return
             }
             console.log('Deleteキーでゲーム開始')
+            timerview.start()
             return
         }
 
@@ -329,6 +372,7 @@ $(function() {
                 return
             }
             console.log('Readyに戻りました')
+            timerview.reset()
             return
         }
 
@@ -339,6 +383,7 @@ $(function() {
             }
             console.log('stop判定入ります')
             // 不正解だったらcancelStop()で開始中に戻る
+            timerview.stop()
             return
         }
 
