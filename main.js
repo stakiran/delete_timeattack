@@ -237,6 +237,22 @@ class GameMaster{
 
 }
 
+class Field{
+    constructor(selectorId){
+        this._selector = selectorId
+    }
+
+    clear(){
+        const empty = ''
+        this.reload(empty)
+    }
+
+    reload(s){
+        $(this._selector).val(s);
+    }
+
+}
+
 const K = {
     'BACKSPACE' : 8,
     'SHIFT'     : 16,
@@ -255,19 +271,20 @@ const K = {
 };
 
 $(function() {
-    $('#battleField').val(''); // reload 時でも確実にクリアしたい
+    const SELECTOR_FIELD = '#battleField'
+
+    const field = new Field(SELECTOR_FIELD)
 
     const XSIZE = 10
     const YSIZE = 5
     const TARGET_COUNT_PER_LINE = 3
     const questioner = new Questioner(XSIZE, YSIZE, TARGET_COUNT_PER_LINE)
-
     questioner.create()
-    $('#battleField').val(questioner.linesByStr);
+    field.reload(questioner.linesByStr)
 
     const GM = new GameMaster()
 
-    $('#battleField').keydown(function(e){
+    $(SELECTOR_FIELD).keydown(function(e){
         const event = e
         const kc = event.keyCode
 
@@ -277,7 +294,7 @@ $(function() {
         }
     })
 
-    $('#battleField').keyup(function(e){
+    $(SELECTOR_FIELD).keyup(function(e){
         const event = e
         const kc = event.keyCode
         
