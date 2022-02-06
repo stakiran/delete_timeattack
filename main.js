@@ -184,6 +184,8 @@ class Questioner {
     }
 
     create(){
+        this.clear()
+
         const dirtyCount = this._targetCountPerLine
         const pureSize = this._xSize - dirtyCount
 
@@ -383,6 +385,8 @@ $(function() {
                 return
             }
             console.log('Readyに戻りました')
+            questioner.create()
+            field.reload(questioner.linesByStr)
             timerview.reset()
             return
         }
