@@ -221,6 +221,12 @@ class GameMaster{
         return true
     }
 
+    cancelStop(){
+        this._state = GameMaster.STARTING
+        return true
+    }
+
+
     ready(){
         if(this.isNotStarted){
             return false
@@ -288,8 +294,12 @@ $(function() {
         }
 
         if(kc == K.SPACE){
-            // ゲーム中に押すと stop する
-            console.log('space')
+            const b = GM.stop()
+            if(!b){
+                return
+            }
+            console.log('stop判定入ります')
+            // 不正解だったらcancelStop()で開始中に戻る
             return
         }
 
