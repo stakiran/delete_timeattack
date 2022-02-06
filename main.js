@@ -185,6 +185,10 @@ class GameMaster{
         this._state = GameMaster.NOT_STARTED
     }
 
+    get state(){
+        return this._state
+    }
+
     get isNotStarted(){
         return this._state == GameMaster.NOT_STARTED
     }
@@ -197,32 +201,35 @@ class GameMaster{
 
     start(){
         if(this.isStarting){
-            return
+            return false
         }
         if(this.isStopped){
-            return
+            return false
         }
         this._state = GameMaster.STARTING
+        return true
     }
 
     stop(){
         if(this.isNotStarted){
-            return
+            return false
         }
         if(this.isStopped){
-            return
+            return false
         }
         this._state = GameMaster.STOPPED
+        return true
     }
 
     ready(){
         if(this.isNotStarted){
-            return
+            return false
         }
         if(this.isStarting){
-            return
+            return false
         }
         this._state = GameMaster.NOT_STARTED
+        return true
     }
 
 }
@@ -255,7 +262,7 @@ $(function() {
     questioner.create()
     $('#battleField').val(questioner.linesByStr);
 
-    const dt1 = new Datetime()
+    const GM = new GameMaster()
 
     $('#battleField').keyup(function(e){
         const event = e
