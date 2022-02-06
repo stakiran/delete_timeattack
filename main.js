@@ -177,7 +177,7 @@ class Questioner {
 }
 
 class GameMaster{
-    static NOT_STARTED = 'ゲーム開始前の状態'
+    static NOT_STARTED = 'ゲーム開始前の状態(READY状態ともいう)'
     static STARTING = 'ゲーム開始中'
     static STOPPED = 'ゲーム終了して結果出てる'
 
@@ -262,37 +262,39 @@ $(function() {
         const kc = event.keyCode
         
         if(K.CURSOR_ <= kc && kc <= K._CURSOR){
-            console.log('cursors')
             return
         }
+
         if(kc == K.DELETE){
-            console.log('delete')
+            // 最初のひと押しで start する
             return
         }
+
         if(kc == K.ESC){
+            // ready に戻る
             console.log('escape')
             return
         }
+
         if(kc == K.SPACE){
+            // ゲーム中に押すと stop する
             console.log('space')
             return
         }
+
         if(kc == K.CTRL){
-            console.log('ctrl')
             return
         }
         if(kc == K.V){
-            console.log('v')
             return
         }
         if(kc == K.SHIFT){
-            console.log('shift')
             return
         }
         if(kc == K.X){
-            console.log('x')
             return
         }
+
         console.log(`Booooo!: kc = ${kc}`)
     });
 
