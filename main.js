@@ -189,7 +189,11 @@ class Questioner {
         const dirtyCount = this._targetCountPerLine
         const pureSize = this._xSize - dirtyCount
 
-        const startLine = `${this.PURE}`
+        // Delete一回で始めたいので空行にする。
+        // コピペ用□は各自コピーしておけ、でいい。
+        //const startLine = `${this.PURE}`
+        const BLANKLINE = ''
+        const startLine = BLANKLINE
         this._lines.push(startLine);
 
         const pureLine = this.PURE.repeat(pureSize)
