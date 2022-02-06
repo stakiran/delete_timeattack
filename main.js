@@ -116,7 +116,7 @@ class Timer {
 
     see(){
         this._dateJST_at_current = this._getNowObject()
-        const msec = this._dateJST_at_starting - this._dateJST_at_current
+        const msec = this._dateJST_at_current- this._dateJST_at_starting
         return msec
     }
 }
@@ -143,13 +143,21 @@ class TimerView {
         this.updateDisplay(TimerView.DEFAUT_DISPLAY)
     }
 
+    _convertToDisplayTime(mSec){
+        const min = Math.trunc(mSec/60000)
+        const sec = Math.trunc(mSec/1000)
+        const milliSec = Math.trunc(mSec - sec*1000)
+        const displayText = `${min.toString()}:${sec.toString()}:${milliSec.toString()}`
+        return displayText
+    }
+
     start(){
         this._timer.start()
 
         const id = setInterval(() => {
             const passingByMsec = this._timer.see()
-            // ここで msec を display passing time に変換……
-            this.updateDisplay(passingByMsec)
+            const passingByText = this._convertToDisplayTime(passingByMsec)
+            this.updateDisplay(passingByText)
         }, this._intervalMsec)
         this._intervalId = id
     }
