@@ -243,6 +243,13 @@ class GameMaster{
         this._state = GameMaster.NOT_STARTED
     }
 
+    addObservers(questioner, field, timerview, message){
+        this._questioner = questioner
+        this._fieldview = field
+        this._timerview = timerview
+        this._messageview = message
+    }
+
     get state(){
         return this._state
     }
@@ -265,6 +272,7 @@ class GameMaster{
             return false
         }
         this._state = GameMaster.STARTING
+        this._update()
         return true
     }
 
@@ -276,6 +284,7 @@ class GameMaster{
             return false
         }
         this._state = GameMaster.STOPPED
+        this._update()
         return true
     }
 
@@ -285,21 +294,77 @@ class GameMaster{
         //    return false
         //}
         this._state = GameMaster.NOT_STARTED
+        this._update()
         return true
     }
 
-    onRaedy(){
-        // フィールドの初期設定
-        // タイマーのリセット
+    fail(){
+        if(!this.isStarting){
+            return false
+        }
+        this._state = GameMaster.STOPPED
+        this._update()
+        return true
     }
 
-    onStart(){
-        // タイマーの開始
+    _update(){
+        if(this.isStarting){
+            this._onStart()
+            return
+        }
+
+        if(this.isStopped){
+            this._onStop()
+            return
+        }
+
+        if(this.isNotStarted){
+            this._onReady()
+            return
+        }
     }
 
-    onStop(){
-        // 判定
+    _onReady(){
+        const questioner = this._questioner
+        const field = this._fieldview
+        const message = this._messageview
+        const timerview = this._timerview
+
+        questioner.create()
+
+        field.reload(questioner.linesByStr)
+        field.moveCursorToTop()
+
+        timerview.reset()
+        message.clear()
     }
+
+    _onStart(){
+        const timerview = this._timerview
+        timerview.start()
+    }
+
+    _onStop(){
+        const questioner = this._questioner
+        const field = this._fieldview
+        const timerview = this._timerview
+
+        const fieldValue = field.value
+        const isCorrect = questioner.judge(fieldValue)
+        if(!isCorrect){
+            return
+        }
+        timerview.stop()
+    }
+
+    _onCheat(){
+        const timerview = this._timerview
+        const message = this._messageview
+
+        timerview.stop()
+        message.display('失格！')
+    }
+
 }
 
 class Field{
@@ -375,19 +440,26 @@ $(function() {
 
     const DISPLAY_INTERVAL_MILLISECONDS = 20
     const timerview = new TimerView(SELECTOR_TIMER, DISPLAY_INTERVAL_MILLISECONDS)
-    timerview.reset()
 
     const XSIZE = 10
     const YSIZE = 5
     const TARGET_COUNT_PER_LINE = 3
     const questioner = new Questioner(XSIZE, YSIZE, TARGET_COUNT_PER_LINE)
+
     questioner.create()
     field.reload(questioner.linesByStr)
-
     field.focusMe()
     field.moveCursorToTop()
+    timerview.reset()
+    message.clear()
 
     const GM = new GameMaster()
+    GM.addObservers(
+        questioner,
+        field,
+        timerview,
+        message
+    )
 
     $(SELECTOR_FIELD).keydown(function(e){
         const event = e
@@ -408,40 +480,17 @@ $(function() {
         }
 
         if(kc == K.DELETE){
-            const b = GM.start()
-            if(!b){
-                return
-            }
-            console.log('Deleteキーでゲーム開始')
-            timerview.start()
+            GM.start()
             return
         }
 
         if(kc == K.ESC){
-            const b = GM.ready()
-            if(!b){
-                return
-            }
-            console.log('Readyに戻りました')
-            questioner.create()
-            field.reload(questioner.linesByStr)
-            field.moveCursorToTop()
-            timerview.reset()
+            GM.ready()
             return
         }
 
         if(kc == K.SPACE){
-            console.log('stop判定入ります')
-
-            const fieldValue = field.value
-            const isCorrect = questioner.judge(fieldValue)
-            if(!isCorrect){
-                console.log('合ってないのでまだ続きます')
-                return
-            }
-
-            console.log('合ってるのでstopします')
-            timerview.stop()
+            GM.stop()
             return
         }
 
@@ -458,12 +507,8 @@ $(function() {
             return
         }
 
-        if(!GM.isStarting){
-            return
-        }
         console.log(`keycode:${kc}`)
-        timerview.stop()
-        message.display('失格！')
+        GM.fail()
     });
 
 });
