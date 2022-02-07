@@ -358,6 +358,7 @@ $(function() {
 
     const DISPLAY_INTERVAL_MILLISECONDS = 20
     const timerview = new TimerView(SELECTOR_TIMER, DISPLAY_INTERVAL_MILLISECONDS)
+    timerview.reset()
 
     const XSIZE = 10
     const YSIZE = 5
@@ -440,7 +441,11 @@ $(function() {
             return
         }
 
-        console.log(`Booooo!: kc = ${kc}`)
+        if(!GM.isStarting){
+            return
+        }
+        console.log(`keycode:${kc}`)
+        timerview.stop()
     });
 
 });
