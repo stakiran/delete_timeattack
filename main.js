@@ -302,9 +302,11 @@ class GameMaster{
         if(!this.isStarting){
             return false
         }
+        console.log('fail!')
         this._state = GameMaster.STOPPED
-        this._update()
-        return true
+
+        // 本当は状態 FAILED 作って _update() で統一すべきなんだろうがー……
+        this._onCheat()
     }
 
     _update(){
