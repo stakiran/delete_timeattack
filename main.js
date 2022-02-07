@@ -333,6 +333,20 @@ class Field{
     }
 }
 
+class MessageDisplay {
+    constructor(selector) {
+        this._selector = selector
+    }
+
+    clear(msg){
+        $(this._selector).text('')
+    }
+
+    display(msg){
+        $(this._selector).text(msg)
+    }
+}
+
 const K = {
     'BACKSPACE' : 8,
     'SHIFT'     : 16,
@@ -353,8 +367,11 @@ const K = {
 $(function() {
     const SELECTOR_FIELD = '#battleField'
     const SELECTOR_TIMER = '#timerArea'
+    const SELECTOR_MESSAGE = '#messageArea'
 
     const field = new Field(SELECTOR_FIELD)
+
+    const message = new MessageDisplay(SELECTOR_MESSAGE)
 
     const DISPLAY_INTERVAL_MILLISECONDS = 20
     const timerview = new TimerView(SELECTOR_TIMER, DISPLAY_INTERVAL_MILLISECONDS)
@@ -446,6 +463,7 @@ $(function() {
         }
         console.log(`keycode:${kc}`)
         timerview.stop()
+        message.display('失格！')
     });
 
 });
