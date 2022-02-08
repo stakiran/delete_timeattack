@@ -303,7 +303,6 @@ class GameMaster{
         if(!this.isStarting){
             return false
         }
-        console.log('fail!')
         this._state = GameMaster.STOPPED
 
         // 本当は状態 FAILED 作って _update() で統一すべきなんだろうがー……
@@ -337,6 +336,7 @@ class GameMaster{
         const field = this._fieldview
         const message = this._messageview
         const timerview = this._timerview
+        const penaltyview = this._penaltyview
 
         questioner.create()
 
@@ -345,7 +345,7 @@ class GameMaster{
 
         timerview.reset()
         message.clear()
-        penaltyView.clear()
+        penaltyview.clear()
     }
 
     _onStart(){
@@ -362,6 +362,8 @@ class GameMaster{
         const isCorrect = questioner.judge(fieldValue)
         if(!isCorrect){
             this.addPenalty()
+            // 状態変える場所をこうやって無闇に追加するの、不吉な臭い……
+            this._state = GameMaster.STARTING
             return
         }
         timerview.stop()
@@ -427,11 +429,11 @@ class Counter {
         this.clear()
     }
 
-    plus(msg){
+    plus(){
         this._count += 1
     }
 
-    clear(msg){
+    clear(){
         this._count = 0
     }
 
