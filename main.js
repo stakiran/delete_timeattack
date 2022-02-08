@@ -243,10 +243,11 @@ class GameMaster{
         this._state = GameMaster.NOT_STARTED
     }
 
-    addObservers(questioner, field, timerview, message){
+    addObservers(questioner, field, timerview, penaltyview, message){
         this._questioner = questioner
         this._fieldview = field
         this._timerview = timerview
+        this._penaltyview = penaltyview
         this._messageview = message
     }
 
@@ -309,6 +310,11 @@ class GameMaster{
         this._onCheat()
     }
 
+    addPenalty(){
+        this._penaltyview.plus()
+        this._penaltyview.display()
+    }
+
     _update(){
         if(this.isStarting){
             this._onStart()
@@ -339,6 +345,7 @@ class GameMaster{
 
         timerview.reset()
         message.clear()
+        penaltyView.clear()
     }
 
     _onStart(){
@@ -354,6 +361,7 @@ class GameMaster{
         const fieldValue = field.value
         const isCorrect = questioner.judge(fieldValue)
         if(!isCorrect){
+            this.addPenalty()
             return
         }
         timerview.stop()
@@ -414,6 +422,56 @@ class MessageDisplay {
     }
 }
 
+class Counter {
+    constructor() {
+        this.clear()
+    }
+
+    plus(msg){
+        this._count += 1
+    }
+
+    clear(msg){
+        this._count = 0
+    }
+
+    get count(){
+        return this._count
+    }
+}
+
+class PenaltyView {
+    constructor(selector) {
+        this._selector = selector
+        this._counter = new Counter()
+
+        this.clear()
+    }
+
+    clear(){
+        $(this._selector).text('')
+        this._counter.clear()
+    }
+
+    plus(){
+        this._counter.plus()
+    }
+
+    display(){
+        const count = this._counter.count
+        if(count==0){
+            // カウンターは減算することがないので clear は不要。
+            // ここに来る時は常に「まだ増えたことがない」とき。
+            return
+        }
+        const penaltyMark = '❌'
+        const display = penaltyMark.repeat(count)
+        $(this._selector).text(display)
+    }
+}
+
+
+
 const K = {
     'BACKSPACE' : 8,
     'SHIFT'     : 16,
@@ -435,10 +493,13 @@ $(function() {
     const SELECTOR_FIELD = '#battleField'
     const SELECTOR_TIMER = '#timerArea'
     const SELECTOR_MESSAGE = '#messageArea'
+    const SELECTOR_PENALTY = '#penaltyArea'
 
     const field = new Field(SELECTOR_FIELD)
 
     const message = new MessageDisplay(SELECTOR_MESSAGE)
+
+    const penaltyView = new PenaltyView(SELECTOR_PENALTY)
 
     const DISPLAY_INTERVAL_MILLISECONDS = 20
     const timerview = new TimerView(SELECTOR_TIMER, DISPLAY_INTERVAL_MILLISECONDS)
@@ -460,6 +521,7 @@ $(function() {
         questioner,
         field,
         timerview,
+        penaltyView,
         message
     )
 
@@ -500,6 +562,7 @@ $(function() {
             return
         }
         if(kc == K.V){
+            GM.addPenalty()
             return
         }
         if(kc == K.SHIFT){
