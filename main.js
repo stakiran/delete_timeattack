@@ -380,8 +380,16 @@ class GameMaster{
 }
 
 class Field{
-    constructor(selectorId){
+    constructor(selectorId, xSizeByCols, ySizeByRows){
         this._selector = selectorId
+
+        // - textare がデフォで余剰を確保してくれるので不要
+        // - 全角文字は1文字で2文字分
+        this._xSizeByCols = xSizeByCols*2
+        // 「スタート地点の空行」と last blank line を確保
+        this._ySizeByRows = ySizeByRows + 2
+
+        this._adjustSize()
     }
 
     clear(){
@@ -391,6 +399,12 @@ class Field{
 
     reload(s){
         $(this._selector).val(s);
+    }
+
+    _adjustSize(){
+        $(this._selector)
+            .attr('cols', this._xSizeByCols)
+            .attr('rows', this._ySizeByRows);
     }
 
     focusMe(){
@@ -525,7 +539,12 @@ $(function() {
     const SELECTOR_MESSAGE = '#messageArea'
     const SELECTOR_PENALTY = '#penaltyArea'
 
-    const field = new Field(SELECTOR_FIELD)
+    const XSIZE = 10
+    const YSIZE = 5
+    const TARGET_COUNT_PER_LINE = 3
+    const questioner = new Questioner(XSIZE, YSIZE, TARGET_COUNT_PER_LINE)
+
+    const field = new Field(SELECTOR_FIELD, XSIZE, YSIZE)
 
     const message = new MessageDisplay(SELECTOR_MESSAGE)
 
@@ -533,11 +552,6 @@ $(function() {
 
     const DISPLAY_INTERVAL_MILLISECONDS = 20
     const timerview = new TimerView(SELECTOR_TIMER, DISPLAY_INTERVAL_MILLISECONDS)
-
-    const XSIZE = 10
-    const YSIZE = 5
-    const TARGET_COUNT_PER_LINE = 3
-    const questioner = new Questioner(XSIZE, YSIZE, TARGET_COUNT_PER_LINE)
 
     questioner.create()
     field.reload(questioner.linesByStr)
