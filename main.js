@@ -505,28 +505,26 @@ class URLParameter{
         }
     }
 
+    _getAsInterger(key, defaultValue){
+        const isIn = key in this._dict
+        const isNotIn = !isIn
+        if(isNotIn){
+            return defaultValue
+        }
+        const value = parseInt(this._dict[key])
+        return value
+    }
+
     get xSize(){
         const KEY = 'x'
         const DEFAULT = 10
-        const isIn = KEY in this._dict
-        const isNotIn = !isIn
-        if(isNotIn){
-            return DEFAULT
-        }
-        const VALUE = parseInt(this._dict[KEY])
-        return VALUE
+        return this._getAsInterger(KEY, DEFAULT)
     }
 
     get ySize(){
         const KEY = 'y'
         const DEFAULT = 7
-        const isIn = KEY in this._dict
-        const isNotIn = !isIn
-        if(isNotIn){
-            return DEFAULT
-        }
-        const VALUE = parseInt(this._dict[KEY])
-        return VALUE
+        return this._getAsInterger(KEY, DEFAULT)
     }
 
     printAll(){
