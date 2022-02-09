@@ -12,4 +12,9 @@ https://stakiran.github.io/delete_timeattack/
 ## How to customize (X,Y) Size
 Use `x` and `y` parameter.
 
-Ex: `index.html?x=20&y=10`
+- 5 x 3
+    - https://stakiran.github.io/delete_timeattack/index.html?x=5&y=3
+- 10 x 10
+    - https://stakiran.github.io/delete_timeattack/index.html?x=10&y=10
+- 20 x 20
+    - https://stakiran.github.io/delete_timeattack/index.html?x=20&y=20
