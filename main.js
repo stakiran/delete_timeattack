@@ -505,6 +505,28 @@ class URLParameter{
         }
     }
 
+    get xSize(){
+        const KEY = 'x'
+        const DEFAULT = 10
+        const isIn = KEY in this._dict
+        const isNotIn = !isIn
+        if(isNotIn){
+            return DEFAULT
+        }
+        return this._dict[KEY]
+    }
+
+    get ySize(){
+        const KEY = 'y'
+        const DEFAULT = 7
+        const isIn = KEY in this._dict
+        const isNotIn = !isIn
+        if(isNotIn){
+            return DEFAULT
+        }
+        return this._dict[KEY]
+    }
+
     printAll(){
         for(const [k, v] of Object.entries(this._dict)){
             console.log(`${k}=${v}`)
@@ -532,15 +554,14 @@ const K = {
 $(function() {
     const rawQueryString = window.location.search;
     const options = new URLParameter(rawQueryString);
-    options.printAll();
   
     const SELECTOR_FIELD = '#battleField'
     const SELECTOR_TIMER = '#timerArea'
     const SELECTOR_MESSAGE = '#messageArea'
     const SELECTOR_PENALTY = '#penaltyArea'
 
-    const XSIZE = 10
-    const YSIZE = 7
+    const XSIZE = options.xSize
+    const YSIZE = options.ySize
     const TARGET_COUNT_PER_LINE = 3
     const questioner = new Questioner(XSIZE, YSIZE, TARGET_COUNT_PER_LINE)
 
