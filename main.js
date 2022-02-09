@@ -513,7 +513,8 @@ class URLParameter{
         if(isNotIn){
             return DEFAULT
         }
-        return this._dict[KEY]
+        const VALUE = parseInt(this._dict[KEY])
+        return VALUE
     }
 
     get ySize(){
@@ -524,7 +525,8 @@ class URLParameter{
         if(isNotIn){
             return DEFAULT
         }
-        return this._dict[KEY]
+        const VALUE = parseInt(this._dict[KEY])
+        return VALUE
     }
 
     printAll(){
