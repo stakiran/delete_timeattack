@@ -8,3 +8,8 @@ https://stakiran.github.io/delete_timeattack/
 - <kbd>Delete</kbd>: Start game and delete `■`
 - <kbd>Space</kbd>: Submit
 - <kbd>Ctrl + X</kbd>,<kbd>Ctrl + V</kbd>: pasting `□` For miss-deletion
+
+## How to customize (X,Y) Size
+Use `x` and `y` parameter.
+
+Ex: `index.html?x=20&y=10`
