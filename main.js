@@ -472,7 +472,31 @@ class PenaltyView {
     }
 }
 
+class URLParameter{
+    // @param queryString とりあえずlocation.searchを想定。
+    constructor(queryString){
+        this._dict = {}
+        this._raw = queryString;
+        if(this._raw==''){
+            return
+        }
 
+        const withoutQuestion = queryString.substring(1);
+        const parameters = withoutQuestion.split('&');
+        for(var i=0;i<parameters.length;i++){
+            const kvs = parameters[i].split('=');
+            const key = kvs[0];
+            const value = kvs[1];
+            this._dict[key] = value;
+        }
+    }
+
+    printAll(){
+        for(const [k, v] of Object.entries(this._dict)){
+            console.log(`${k}=${v}`)
+        }
+    }
+}
 
 const K = {
     'BACKSPACE' : 8,
@@ -492,6 +516,10 @@ const K = {
 };
 
 $(function() {
+    const rawQueryString = window.location.search;
+    const options = new URLParameter(rawQueryString);
+    options.printAll();
+  
     const SELECTOR_FIELD = '#battleField'
     const SELECTOR_TIMER = '#timerArea'
     const SELECTOR_MESSAGE = '#messageArea'
