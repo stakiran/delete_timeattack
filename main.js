@@ -540,7 +540,7 @@ $(function() {
     const SELECTOR_PENALTY = '#penaltyArea'
 
     const XSIZE = 10
-    const YSIZE = 5
+    const YSIZE = 7
     const TARGET_COUNT_PER_LINE = 3
     const questioner = new Questioner(XSIZE, YSIZE, TARGET_COUNT_PER_LINE)
 
