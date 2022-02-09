@@ -197,7 +197,7 @@ class Questioner {
         this._lines.push(startLine);
 
         const pureLine = this.PURE.repeat(pureSize)
-        for(var i=0; i<pureSize; i++){
+        for(var i=0; i<this._ySize; i++){
             const line = getInsertedString_RandomlyNtimes(pureLine, dirtyCount, this.DIRTY)
             this._lines.push(line);
         }
