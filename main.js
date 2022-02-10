@@ -171,6 +171,36 @@ class TimerView {
     }
 }
 
+
+const validateGameSize = (options, message) => {
+    const x = options.xSize
+    const y = options.ySize
+    const d = options.dirtyCount
+
+    const PREFIX = '[ERROR]'
+
+    if(x<2){
+        message.display(`${PREFIX} x は 2 以上にしてください。`)
+        return false
+    }
+    if(y<2){
+        message.display(`${PREFIX} y は 2 以上にしてください。`)
+        return false
+    }
+    if(x<d){
+        message.display(`${PREFIX} d は x 以下にしてください。`)
+        return false
+    }
+
+    const MAX = 100
+    if(MAX<x || MAX<y){
+        message.display(`${PREFIX} x, y ともに ${MAX} 以下にしてください。`)
+        return false
+    }
+
+    return true
+}
+
 class Questioner {
     constructor(xSize, ySize, targetCountPerLine) {
         this._xSize = xSize;
@@ -568,17 +598,20 @@ $(function() {
     const SELECTOR_MESSAGE = '#messageArea'
     const SELECTOR_PENALTY = '#penaltyArea'
 
+    const message = new MessageDisplay(SELECTOR_MESSAGE)
+    message.clear()
+
     const XSIZE = options.xSize
     const YSIZE = options.ySize
     const TARGET_COUNT_PER_LINE = options.dirtyCount
     const questioner = new Questioner(XSIZE, YSIZE, TARGET_COUNT_PER_LINE)
 
+    if(!validateGameSize(options, message)){
+        return
+    }
+
     const field = new Field(SELECTOR_FIELD, XSIZE, YSIZE)
-
-    const message = new MessageDisplay(SELECTOR_MESSAGE)
-
     const penaltyView = new PenaltyView(SELECTOR_PENALTY)
-
     const DISPLAY_INTERVAL_MILLISECONDS = 20
     const timerview = new TimerView(SELECTOR_TIMER, DISPLAY_INTERVAL_MILLISECONDS)
 
@@ -587,7 +620,6 @@ $(function() {
     field.focusMe()
     field.moveCursorToTop()
     timerview.reset()
-    message.clear()
 
     const GM = new GameMaster()
     GM.addObservers(
