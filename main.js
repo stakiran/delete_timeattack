@@ -529,6 +529,12 @@ class URLParameter{
         return this._getAsInterger(KEY, DEFAULT)
     }
 
+    get dirtyCount(){
+        const KEY = 'd'
+        const DEFAULT = 3
+        return this._getAsInterger(KEY, DEFAULT)
+    }
+
     printAll(){
         for(const [k, v] of Object.entries(this._dict)){
             console.log(`${k}=${v}`)
@@ -564,7 +570,7 @@ $(function() {
 
     const XSIZE = options.xSize
     const YSIZE = options.ySize
-    const TARGET_COUNT_PER_LINE = 3
+    const TARGET_COUNT_PER_LINE = options.dirtyCount
     const questioner = new Questioner(XSIZE, YSIZE, TARGET_COUNT_PER_LINE)
 
     const field = new Field(SELECTOR_FIELD, XSIZE, YSIZE)
