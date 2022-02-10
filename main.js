@@ -208,12 +208,14 @@ class Questioner {
         const pureSize = this._xSize - dirtyCount
         const pureLine = this.PURE.repeat(pureSize)
         let pureLines = []
-        for(var i=0; i<pureSize; i++){
+        for(var i=0; i<this._ySize; i++){
             pureLines.push(pureLine);
         }
         const expectByString = arraylineToString(pureLines)
 
+        console.log('Expect')
         console.log(expectByString)
+        console.log('Actual')
         console.log(actualByString)
 
         const result = equalArrayXandArrayY(expectByString, actualByString)
