@@ -12,7 +12,14 @@ https://stakiran.github.io/delete_timeattack/
 ## How to customize (X,Y) Size and counf of `■`
 Use `x`, `y` and `d` parameter.
 
-- 5 x 3
-    - https://stakiran.github.io/delete_timeattack/index.html?x=5&y=3
-- 10 x 10 and count=5
-    - https://stakiran.github.io/delete_timeattack/index.html?x=10&y=10&d=5
+## Samples
+- Standard
+    - https://stakiran.github.io/delete_timeattack/index.html
+- Short Short
+    - https://stakiran.github.io/delete_timeattack/index.html?x=3&y=3&d=1
+- x-longer
+    - https://stakiran.github.io/delete_timeattack/index.html?x=20&y=5&d=15
+- y-longer
+    - https://stakiran.github.io/delete_timeattack/index.html?x=3&y=20&d=1
+- longplay
+    - https://stakiran.github.io/delete_timeattack/index.html?x=20&y=20&d=10
