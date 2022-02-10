@@ -6,8 +6,16 @@ https://stakiran.github.io/delete_timeattack/
 
 - <kbd>Esc</kbd>: New game
 - <kbd>Delete</kbd>: Start game and delete `■`
+    - See below "How to start".
 - <kbd>Space</kbd>: Submit
 - <kbd>Ctrl + X</kbd>,<kbd>Ctrl + V</kbd>: pasting `□` For miss-deletion
+
+## How to start
+You must start at the first line.
+
+In other words, starting a game means "to remove the first blank line".
+
+![image](https://user-images.githubusercontent.com/23325839/153512125-0dc9568f-362b-4216-9cb1-dfbfcbf7be7c.png)
 
 ## How to customize (X,Y) Size and counf of `■`
 Use `x`, `y` and `d` parameter.
