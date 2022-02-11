@@ -31,7 +31,7 @@ If submit failed, penalty count ❌ is increased.
 ![image](https://user-images.githubusercontent.com/23325839/153513897-d41ad30f-79c7-4817-b555-c191feb8df44.png)
 
 ### Failure
-If press other key, the game turn to is failed(失格) right away.
+If press other key, the game turn to is failed right away.
 
 ![image](https://user-images.githubusercontent.com/23325839/153513956-ecb18fa0-d442-42e7-a3d6-8f42566cb019.png)
 
