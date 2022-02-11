@@ -1,4 +1,4 @@
-# delete_timeattack(WIP)
+# Delete TimeAttack
 ![a](https://user-images.githubusercontent.com/23325839/152672885-9b9192f1-2275-41f4-bf43-556ed7ed6021.gif)
 
 ## Requirement
@@ -49,3 +49,7 @@ Use `x`, `y` and `d` parameter.
     - https://stakiran.github.io/delete_timeattack/index.html?x=3&y=20&d=1
 - longplay
     - https://stakiran.github.io/delete_timeattack/index.html?x=20&y=20&d=10
+
+## History
+- 2022/02/12 ver1.0.0
+    - First release
