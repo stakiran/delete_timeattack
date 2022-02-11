@@ -33,7 +33,7 @@ If submit failed, penalty count ❌ is increased.
 ### Failure
 If press other key, the game turn to is failed right away.
 
-![image](https://user-images.githubusercontent.com/23325839/153513956-ecb18fa0-d442-42e7-a3d6-8f42566cb019.png)
+![image](https://user-images.githubusercontent.com/23325839/153682489-12515146-8d89-4e03-b24c-2c756007910f.png)
 
 ## How to customize (X,Y) Size and counf of `■`
 Use `x`, `y` and `d` parameter.
