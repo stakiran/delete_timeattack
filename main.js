@@ -574,6 +574,7 @@ class URLParameter{
 
 const K = {
     'BACKSPACE' : 8,
+    'ENTER'     : 13,
     'SHIFT'     : 16,
     'CTRL'      : 17,
     'ESC'       : 27,
@@ -635,7 +636,7 @@ $(function() {
         const kc = event.keyCode
 
         // stop 操作で使いたいが、文字入力入ると判定乱れるのでロックする。
-        if(kc == K.SPACE){
+        if(kc == K.ENTER){
             event.preventDefault()
         }
     })
@@ -658,7 +659,7 @@ $(function() {
             return
         }
 
-        if(kc == K.SPACE){
+        if(kc == K.ENTER){
             GM.stop()
             return
         }

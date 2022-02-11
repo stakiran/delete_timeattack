@@ -6,7 +6,7 @@ https://stakiran.github.io/delete_timeattack/
 
 - <kbd>Esc</kbd>: New game
 - <kbd>Delete</kbd>: Start game and delete `■`
-- <kbd>Space</kbd>: Submit
+- <kbd>Enter</kbd>: Submit
 - <kbd>Ctrl + X</kbd>,<kbd>Ctrl + V</kbd>: pasting `□` For miss-deletion
 
 ### How to start
