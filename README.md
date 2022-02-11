@@ -1,13 +1,22 @@
 # delete_timeattack(WIP)
 ![a](https://user-images.githubusercontent.com/23325839/152672885-9b9192f1-2275-41f4-bf43-556ed7ed6021.gif)
 
+## Requirement
+- Tested on Windows10 and Firefox
+- But, maybe works on other platform.
+    - If not working, please report as an issue :smile:
+
 ## How to play
 https://stakiran.github.io/delete_timeattack/
 
-- <kbd>Esc</kbd>: New game
-- <kbd>Delete</kbd>: Start game and delete `■`
-- <kbd>Enter</kbd>: Submit
-- <kbd>Ctrl + X</kbd>,<kbd>Ctrl + V</kbd>: pasting `□` For miss-deletion
+- <kbd>Esc</kbd>
+    - New game
+- <kbd>Delete</kbd> or <kbd>Backspace</kbd>
+    - Start game and delete `■`
+- <kbd>Enter</kbd>
+    - Submit
+- <kbd>Ctrl + X</kbd> or <kbd>Ctrl + V</kbd>
+    - Pasting `□` For miss-deletion
 
 ### How to start
 You must start at the first line.

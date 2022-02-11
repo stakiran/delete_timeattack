@@ -654,6 +654,10 @@ $(function() {
             GM.start()
             return
         }
+        if(kc == K.BACKSPACE){
+            GM.start()
+            return
+        }
 
         if(kc == K.ESC){
             GM.ready()
