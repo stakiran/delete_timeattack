@@ -405,8 +405,9 @@ class GameMaster{
         const timerview = this._timerview
         const message = this._messageview
 
+        const FAILURE_MESSAGE = 'Failed!'
         timerview.stop()
-        message.display('失格！')
+        message.display(FAILURE_MESSAGE)
     }
 
 }
